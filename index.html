@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>DAAAAM Dude!</title>
+
+</head>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <button class="side" onclick="DAM()">Digital Asset Management System</button>
+  <button class = "side" onclick="contentWorkFlow()">Content WorkFlow</button>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Change view</span>
+
+   
+</html> 
+
+<div class="DAM" id="DAM">
+  <!--<button id="openModalBtn">Open Modal</button>-->
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <span id = "modalFileName"></span>
+    <canvas id="canvas" style = "display:none" width="400" height="200"></canvas>
+    <div style = "display: block">
+    <img id="modalImg" margin = "20px" src="" width="400" height="200">
+  </div>
+    <textarea id="modalFileDesc" rows="4" cols="50" placeholder="File Description..."></textarea>
+    <textarea id="modalTags" rows="4" cols="50" placeholder="Tags..."></textarea>
+    <!--<button id="closeModalBtn">Close</button>-->
+  </div>
+</div>
+    <div class="topnav">
+        <span class=createText>Sort By:</span>
+        <select name="Sort by" id="Sort">
+            <option value="File Name">File Name</option>
+            <option value="Number of Tags (Ascending)">Number of Tags (Ascending)</option>
+            <option value="Number of Tags (Descending)">Number of Tags (Descending)</option>
+            <option value="Date Created (Ascending)">Date Created (Ascending)</option>
+            <option value="Date Created (Descending)">Date Created (Descending)</option>
+            
+        </select>
+        <span class=createText>Filter By:</span>
+        <select name="Filter by" id="Filter">
+            <option value="ALL Documents">ALL Documents</option>
+            <option value="Images">Images</option>
+            <option value="Videos">Videos</option>
+            <option value="Misc. Documents">Misc. Documents</option>
+        </select>
+        <span class = createText id="tagSearchText">Search by Tag:</span>
+        <div id="tagSearchContainer" style="display:inline">
+        <input type = "text" id = tagSearch class = contained>
+      </div>
+      <!--<button id="tagSearchButton">Append to Tag Search List</button>-->
+      <select name="tagOptions" id="tagOptions">
+        <option value="UNION">UNION</option>
+        <option value="INTERSECTION">INTERSECTION</option>
+      </select>
+        <!--<input type="checkbox" id="withdraw" name="withdraw" value="True">
+        <label for="withdraw"> Include Videos?</label><br>-->
+    </div>
+<div class = creator>
+  <input type="file" id="fileInput" accept="image/*">
+  <span class = createText>File Description:</span>
+  <input type = "text" id = "fileDesc" class = contained>
+  <span class = createText>Tags:</span>
+  <div id="tagContainer">
+    <input type="text" id="tagInput" placeholder="Enter tags...">
+  </div>
+  <!--<button id="tagAddButton">Add Tag</button>-->
+  <button id="uploadButton">Upload To DAM</button>
+  <div id="imageContainer"></div>
+</div>
+    <div class = "creator" id="quickCreate">
+      <span>Quick Create: </span>
+      <input type="text" id="quickCreateText">
+      <button id="quickCreateButton">Enter Prompt</button>
+    </div>
+        <div id = gamer class = DAM>
+        </div>
+        <div id = toolbarwrapper class = toolbarwrapper>
+          <div class="toolbar">
+            <div class = "box">
+            Average Number of Tags: <span id="average">0%</span>
+          </div>
+          <div class = "box">
+            Number of documents uploaded: <span id="numberOfDocuments">0</span>
+          </div>
+          <div class = "box">
+            File Storage Used <span id="storageUsed">0</span>
+          </div>
+          <div class = "box">
+            Total Storage Capacity <span id="storageCapacity">0</span>
+          </div>
+            
+          </div>
+        </div>
+
+</div>
+<div style="display:none" class = contentWorkFlow id = contentWorkFlow>
+    <div class = topVis >
+        Lowest Grade:
+        <span class = topVis id="minGrade">0%</span>
+    </div>
+    <div class = topvis >
+        Median Grade:
+        <span class = topVis id="medianGrade">0%</span>
+    </div>
+    <div class = topvis>
+        Highest Grade:
+        <span class = topVis id="maxGrade">0%</span>
+    </div>
+    <div id = "thisChart"></div>
+    <!--<canvas id="myChart" style="width:100%;max-width:700px"></canvas>-->
+</div>
+        
+    </body>
+</div>
+<link rel="stylesheet" href="myCSS.css">
+<link rel="stylesheet" href="modalCSS.css">
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<!--<script src="myJavascript.js"></script>-->
+<script src="navigation.js"></script>
+<script src="DAMJavaScript.js"></script>
+</html>
