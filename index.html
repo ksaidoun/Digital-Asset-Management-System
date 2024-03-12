@@ -104,7 +104,27 @@
         </div>
 
 </div>
-<div style="display:none" class = contentWorkFlow id = contentWorkFlow>
+<link rel="stylesheet" href="contentWorkflow.css">
+<div class = "contentWorkflow" id = "contentWorkflow" style="display:none">
+  <div class="container">
+    <h1>Content Workflow</h1>
+    <div id="tasks">
+      <input type="text" id="taskInput" placeholder="Add a new task">
+      <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <input type="text" id="subtaskInput" placeholder="Add a subtask">
+      <ul id="subtaskList">
+        
+      </ul>
+      <button onclick="addSubtask()">Add Subtask</button>
+    </div>
+  </div>
+  <!--
     <div class = topVis >
         Lowest Grade:
         <span class = topVis id="minGrade">0%</span>
@@ -117,12 +137,11 @@
         Highest Grade:
         <span class = topVis id="maxGrade">0%</span>
     </div>
-    <div id = "thisChart"></div>
+    <div id = "thisChart"></div>-->
     <!--<canvas id="myChart" style="width:100%;max-width:700px"></canvas>-->
 </div>
         
     </body>
-</div>
 <link rel="stylesheet" href="myCSS.css">
 <link rel="stylesheet" href="modalCSS.css">
 <script
@@ -131,4 +150,5 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 <!--<script src="myJavascript.js"></script>-->
 <script src="navigation.js"></script>
 <script src="DAMJavaScript.js"></script>
+<script src="contentWorkflow.js"></script>
 </html>

@@ -1,11 +1,11 @@
 function DAM(){
     document.getElementById("DAM").style.display = "flex";
-    document.getElementById("contentWorkFlow").style.display = "none";;
+    document.getElementById("contentWorkflow").style.display = "none";
 }
 
 function contentWorkFlow(){
     document.getElementById("DAM").style.display = "none";
-    document.getElementById("contentWorkFlow").style.display = "block";;
+    document.getElementById("contentWorkflow").style.display = "block";
 }
 
 function openNav() {
