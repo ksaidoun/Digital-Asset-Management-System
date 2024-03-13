@@ -23,7 +23,18 @@ filter.onchange = function(){updateVisuals()};
 var tagOptions = document.getElementById("tagOptions");
 tagOptions.onchange = function(){updateVisuals()};
 
-
+function storageFormat(bytes){
+    if(bytes >= 1099511627776){
+        return (Math.round((bytes *100/ 1099511627776)) / 100).toString() + "TB";
+    }else if(bytes >= 1073741824){
+        return (Math.round((bytes *100/ 1073741824)) / 100).toString() + "GB";
+    }else if(bytes >= 1048576){
+        return (Math.round((bytes *100/ 1048576)) / 100).toString() + "MB";
+    }else if(bytes >= 1024){
+        return (Math.round((bytes *100/ 1024)) / 100).toString() + "KB";
+    }
+    return bytes + " Bytes";
+}
 
 function updateVisuals(){
 var currId;
@@ -49,6 +60,10 @@ var gamer = document.getElementById('gamer');
             break;
 
     }
+var count = 0;
+var tags = 0;
+var storageUsed = 0;
+
 
     for(var i = 0; i < assets.length; ++i){
         var newDiv = document.createElement("div");
@@ -59,10 +74,13 @@ var gamer = document.getElementById('gamer');
         {
             console.log(tagOptions.value);
             if(meetsTagRequirements(assets[i].tags, tagOptions.value)){
-                    newDiv.classList.add("item");
+                count += 1;
+                tags += assets[i].tags.length;
+                storageUsed += assets[i].fileSize;    
+                newDiv.classList.add("item");
                     newDiv.setAttribute("id", assets[i].id.toString());
-                    var creatorText = ["File Name: ", "File Size: ", "File Description: ", "Tags: ", "Date: "];
-                    var fileContent = [assets[i].fileName, assets[i].fileSize, assets[i].fileDesc, assets[i].tags, assets[i].createdOn];
+                    var creatorText = ["File Name: ", "File Size: ", "Date: ", "File Description: ", "Tags: "];
+                    var fileContent = [assets[i].fileName, storageFormat(assets[i].fileSize), assets[i].createdOn.toLocaleString(), assets[i].fileDesc, assets[i].tags];
                     var newContent = document.createElement("button");
                     newContent.innerHTML = "Edit";
                     newContent.setAttribute("id", assets[i].id.toString() + "- Edit");
@@ -81,14 +99,19 @@ var gamer = document.getElementById('gamer');
                     newContent.src = assets[i].img.src;
                     newDiv.appendChild(newContent);
                     // Create "File Name, File Size, File Description"
-                    for(var j = 0; j < 2; ++j){
+                    for(var j = 0; j < 3; ++j){
+                        var newerDiv = document.createElement('div');
+                        newerDiv.setAttribute("class", "itemTextArea");
                         newContent = document.createElement("span");
                         newContent.classList.add("createText");
+                        newContent.setAttribute('margin-right', "2px");
                         newContent.innerHTML = creatorText[j];
-                        newDiv.appendChild(newContent);
+                        newerDiv.appendChild(newContent);
                         newContent = document.createElement("span");
+                        newContent.setAttribute('margin-right', "5px");
                         newContent.innerHTML = fileContent[j];
-                        newDiv.appendChild(newContent);
+                        newerDiv.appendChild(newContent);
+                        newDiv.appendChild(newerDiv);
                         
                     }
 
@@ -110,6 +133,11 @@ var gamer = document.getElementById('gamer');
         }
 
     }
+    document.getElementById("average").innerHTML = count==0? 0 : tags / count;
+    document.getElementById("numberOfDocuments").innerHTML = count;
+    document.getElementById("storageUsed").innerHTML = storageFormat(storageUsed);
+    document.getElementById("storageCapacity").innerHTML = "64Tb";
+    
 }
 
 const tagSearchContainer = document.getElementById('tagSearchContainer');
@@ -121,6 +149,21 @@ const tagInput = document.getElementById('tagInput');
 var tagsInCreateBar = [];
 var tagsInSearchBar = [];
 
+function autoTag(asset){
+    if(asset.fileName == "Projector_1.png"){
+        asset.tags.push("Projector");
+        asset.tags.push("Camera");
+        asset.tags.push("Christie");
+        asset.tags.push("Black");
+    }
+    if(asset.fileName == "Projector_2.jpeg"){
+        asset.tags.push("Projector");
+        asset.tags.push("Christie");
+        asset.tags.push("White");
+        asset.tags.push("LW555");
+        asset.tags.push("3LCD");
+    }
+}
 
 function meetsTagRequirements(tags, type){
     var output;
@@ -251,6 +294,10 @@ function listToString(myList){
     return output;
 }
 
+function stringToList(myString){
+    return myString.split(", ");
+}
+
 function quickCreate(prompt){
     prompt = prompt.toLowerCase();
     var img = new Image();
@@ -282,6 +329,7 @@ function addAsset(file, img, date, thisId, isNew){
     if(isNew){
         currId = id;
         assets.push(new Asset(file.name, img, file.size, fileDesc, [...tagsInCreateBar], date, currId, file.type));
+        console.log("GOT HERE");
         ++id;
     }else{
         currId = thisId;
@@ -318,9 +366,10 @@ uploadToDAM.addEventListener('click', ()=>{
     const files = fileInput.files;
     currentFile = files[0];
     var img = new Image();
-
+    const currentTime = new Date();
+    const fileType = currentFile.type;
     //const file = currentFile;
-      if (currentFile) {
+      if (currentFile && fileType.startsWith("image/") ) {
         const reader = new FileReader();
 
         // Once the file is loaded, draw it onto the canvas
@@ -331,11 +380,15 @@ uploadToDAM.addEventListener('click', ()=>{
         // Read the file as a data URL
         reader.readAsDataURL(currentFile);
      
-            const fileType = currentFile.type;
+            
             console.log('File type:', fileType);
-            const currentTime = new Date();
+            
             img.onload = function(){
                 addAsset(currentFile, img, currentTime, id, true);
             }
           }
+        else if(currentFile && fileType.startsWith("video/")){
+            img.src="https://i.ytimg.com/vi/k-JUM2vqQkw/maxresdefault.jpg";
+            addAsset(currentFile, img, currentTime, id, true);
+        }
     });

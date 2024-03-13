@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>DAAAAM Dude!</title>
+    <title>Digital Asset Management System Information Technology</title>
 
 </head>
 <!DOCTYPE html>
@@ -10,15 +10,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <button class="side" onclick="DAM()">Digital Asset Management System</button>
-  <button class = "side" onclick="contentWorkFlow()">Content WorkFlow</button>
+  <!--<button class="side" onclick="DAM()">Digital Asset Management System</button>
+  <button class = "side" onclick="contentWorkFlow()">Content WorkFlow</button>-->
+  <a href="#" id = "DAMLink" onclick="DAM()">DAM</a>
+  <a href="#" id = "ContentWorkFlowLink" onclick="contentWorkFlow()">Content Workflow</a>
+</div><!--
+<div class="sidebar">
+  <a href="#" onclick="toggleTab('DAM')">DAM</a>
+  <a href="#" onclick="toggleTab('contentWorkflow')">Content Workflow</a>
+</div>-->
+<div>
+  <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</span>
+  <img style="cursor:pointer; bottom:0" onclick="openNav()" src = "images/DAM.png" width="100px">
+
+<a href="user-guide.html">User Guide</a>
+<a href="pricing-plans.html">Pricing Plans</a>
+<a href = "settings.html">Settings</a>
+
+
 </div>
-
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Change view</span>
-
-   
 </html> 
 
 <div class="DAM" id="DAM">
@@ -63,24 +76,30 @@
         <option value="UNION">UNION</option>
         <option value="INTERSECTION">INTERSECTION</option>
       </select>
+      
         <!--<input type="checkbox" id="withdraw" name="withdraw" value="True">
         <label for="withdraw"> Include Videos?</label><br>-->
     </div>
 <div class = creator>
-  <input type="file" id="fileInput" accept="image/*">
+  <input style="margin-left: 5px" type="file" id="fileInput" accept="image/* video/*">
   <span class = createText>File Description:</span>
   <input type = "text" id = "fileDesc" class = contained>
   <span class = createText>Tags:</span>
   <div id="tagContainer">
-    <input type="text" id="tagInput" placeholder="Enter tags...">
+    <input type="text" id="tagInput" style="margin-right: 5px" placeholder="Enter tags...">
   </div>
   <!--<button id="tagAddButton">Add Tag</button>-->
-  <button id="uploadButton">Upload To DAM</button>
+  <button id="uploadButton" style="margin-right: 10px">Upload To DAM</button>
+  <span style="margin-right: 5px">Enable auto-tagging? </span>
   <div id="imageContainer"></div>
+  <label class="switch">
+    <input type="checkbox">
+    <span class="slider round"></span>
+  </label>
 </div>
-    <div class = "creator" id="quickCreate">
-      <span>Quick Create: </span>
-      <input type="text" id="quickCreateText">
+    <div class = "quickCreate" id="quickCreate">
+      <span style="margin-left: 5px; margin-right: 5px">Quick Create: </span>
+      <input type="text" id="quickCreateText" style="margin-right: 5px">
       <button id="quickCreateButton">Enter Prompt</button>
     </div>
         <div id = gamer class = DAM>
@@ -88,13 +107,13 @@
         <div id = toolbarwrapper class = toolbarwrapper>
           <div class="toolbar">
             <div class = "box">
-            Average Number of Tags: <span id="average">0%</span>
+            Average Number of Tags: <span id="average">0</span>
           </div>
           <div class = "box">
-            Number of documents uploaded: <span id="numberOfDocuments">0</span>
+            Number of files of this type: <span id="numberOfDocuments">0</span>
           </div>
           <div class = "box">
-            File Storage Used <span id="storageUsed">0</span>
+            File Storage Used <span id="storageUsed">0 Bytes</span>
           </div>
           <div class = "box">
             Total Storage Capacity <span id="storageCapacity">0</span>
