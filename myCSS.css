@@ -383,3 +383,15 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.modal .btn {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.modal .btn:hover {
+  background-color: #2980b9;
+}

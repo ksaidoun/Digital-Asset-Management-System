@@ -136,7 +136,7 @@ var storageUsed = 0;
     document.getElementById("average").innerHTML = count==0? 0 : tags / count;
     document.getElementById("numberOfDocuments").innerHTML = count;
     document.getElementById("storageUsed").innerHTML = storageFormat(storageUsed);
-    document.getElementById("storageCapacity").innerHTML = "64Tb";
+    //document.getElementById("storageCapacity").innerHTML = "64TB";
     
 }
 
@@ -146,9 +146,21 @@ const tagContainer = document.getElementById('tagContainer');
 const tagInput = document.getElementById('tagInput');
 
 
+function stringToList(string){
+    return string.split(', ');
+}
+
 var tagsInCreateBar = [];
 var tagsInSearchBar = [];
-
+var saveButton = document.getElementById("saveChanges");
+saveButton.addEventListener('click', function(){
+    var index = assets.findIndex(asset => asset.id == document.getElementById("modalID").innerHTML);
+    console.log(index);
+    assets[index].fileDesc = document.getElementById('modalFileDesc').value;
+    assets[index].tags = stringToList(document.getElementById('modalTags').value);
+    updateVisuals();
+    document.getElementById("myModal").style.display="none";
+});
 function autoTag(asset){
     if(asset.fileName == "Projector_1.png"){
         asset.tags.push("Projector");
@@ -156,7 +168,7 @@ function autoTag(asset){
         asset.tags.push("Christie");
         asset.tags.push("Black");
     }
-    if(asset.fileName == "Projector_2.jpeg"){
+    if(asset.fileName == "Projector_2.jpg"){
         asset.tags.push("Projector");
         asset.tags.push("Christie");
         asset.tags.push("White");
@@ -272,15 +284,9 @@ const quickCreateField = document.getElementById('quickCreateText');
 quickCreateField.addEventListener('keyup', function(event){
     if (event.key === 'Enter') {
         quickCreate(document.getElementById("quickCreateText").value);
-        //quickCreateField.value = "";
       }
     });
-    /*quickCreateField.addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-          addTagToCreateBar();
-        }
-      });
-*/
+
 
 
 function listToString(myList){
@@ -307,7 +313,7 @@ function quickCreate(prompt){
     var tags = [];
     
     if(prompt.includes("doge")){
-        img.src = "https://cdn.i-scmp.com/sites/default/files/styles/wide_landscape/public/d8/video/thumbnail/2023/08/21/Clean_0.jpg?itok=PY9WAyjc";//"https://m.media-amazon.com/images/I/51ae1mQVXML._AC_UF1000,1000_QL80_.jpg";
+        img.src = "https://cdn.i-scmp.com/sites/default/files/styles/wide_landscape/public/d8/video/thumbnail/2023/08/21/Clean_0.jpg?itok=PY9WAyjc";
         name = "doge.png";
         size = 6921;
         desc = "Doge is really cool";
@@ -322,18 +328,24 @@ function quickCreate(prompt){
     updateVisuals();
 }
 
-function addAsset(file, img, date, thisId, isNew){
+function addAsset(file, img, date){
     var currId;
     var fileDesc = document.getElementById('fileDesc').value;
     console.log(fileDesc);
-    if(isNew){
-        currId = id;
-        assets.push(new Asset(file.name, img, file.size, fileDesc, [...tagsInCreateBar], date, currId, file.type));
-        console.log("GOT HERE");
-        ++id;
-    }else{
-        currId = thisId;
+    
+    //if(isNew){
+    currId = id;
+    var asset = new Asset(file.name, img, file.size, fileDesc, [...tagsInCreateBar], date, currId, file.type);
+    if(document.getElementById("autoTag").checked == true){
+        autoTag(asset);
     }
+    assets.push(asset);
+    
+    console.log("GOT HERE");
+    ++id;
+    //}else{
+    //    currId = thisId;
+    //}
     console.log(assets);
     updateVisuals();
     
@@ -351,6 +363,7 @@ function changeDisplayImage(asset){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(asset.img, 0, 0, canvas.width, canvas.height);
     console.log(listToString(asset.tags));
+    document.getElementById('modalID').innerHTML = asset.id;
     document.getElementById('modalFileName').innerHTML = asset.fileName;
     document.getElementById('modalFileDesc').value = asset.fileDesc;
     document.getElementById('modalTags').value = listToString(asset.tags);
@@ -384,11 +397,14 @@ uploadToDAM.addEventListener('click', ()=>{
             console.log('File type:', fileType);
             
             img.onload = function(){
-                addAsset(currentFile, img, currentTime, id, true);
+                addAsset(currentFile, img, currentTime);
             }
           }
         else if(currentFile && fileType.startsWith("video/")){
             img.src="https://i.ytimg.com/vi/k-JUM2vqQkw/maxresdefault.jpg";
-            addAsset(currentFile, img, currentTime, id, true);
+            addAsset(currentFile, img, currentTime);
+        }else if(currentFile && currentFile.name.includes('CS490')){
+            img.src = CS490;
+            addAsset(currentFile, img, currentTime);
         }
     });

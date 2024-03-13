@@ -26,9 +26,9 @@
   <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</span>
   <img style="cursor:pointer; bottom:0" onclick="openNav()" src = "images/DAM.png" width="100px">
 
-<a href="user-guide.html">User Guide</a>
-<a href="pricing-plans.html">Pricing Plans</a>
-<a href = "settings.html">Settings</a>
+<!--<a href="user-guide.html">User Guide</a>-->
+<a href="pricing-plans.html" style="margin-left: 20px">Pricing Plans</a>
+<a href = "settings.html" style="margin-left: 20px">Settings</a>
 
 
 </div>
@@ -45,8 +45,10 @@
     <div style = "display: block">
     <img id="modalImg" margin = "20px" src="" width="400" height="200">
   </div>
+  <span id = "modalID"></span>
     <textarea id="modalFileDesc" rows="4" cols="50" placeholder="File Description..."></textarea>
     <textarea id="modalTags" rows="4" cols="50" placeholder="Tags..."></textarea>
+    <button id = "saveChanges" class = "btn">Save Changes</button>
     <!--<button id="closeModalBtn">Close</button>-->
   </div>
 </div>
@@ -56,8 +58,8 @@
             <option value="File Name">File Name</option>
             <option value="Number of Tags (Ascending)">Number of Tags (Ascending)</option>
             <option value="Number of Tags (Descending)">Number of Tags (Descending)</option>
-            <option value="Date Created (Ascending)">Date Created (Ascending)</option>
-            <option value="Date Created (Descending)">Date Created (Descending)</option>
+            <option value="Date Created (Ascending)">Date Created (Earliest first)</option>
+            <option value="Date Created (Descending)">Date Created (Most recent first)</option>
             
         </select>
         <span class=createText>Filter By:</span>
@@ -93,7 +95,7 @@
   <span style="margin-right: 5px">Enable auto-tagging? </span>
   <div id="imageContainer"></div>
   <label class="switch">
-    <input type="checkbox">
+    <input id = "autoTag" type="checkbox">
     <span class="slider round"></span>
   </label>
 </div>
@@ -116,7 +118,7 @@
             File Storage Used <span id="storageUsed">0 Bytes</span>
           </div>
           <div class = "box">
-            Total Storage Capacity <span id="storageCapacity">0</span>
+            Total Storage Capacity <span id="storageCapacity">64TB</span>
           </div>
             
           </div>
@@ -167,6 +169,7 @@
 src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 </script>
 <!--<script src="myJavascript.js"></script>-->
+<script src="DataVariables.js"></script>
 <script src="navigation.js"></script>
 <script src="DAMJavaScript.js"></script>
 <script src="contentWorkflow.js"></script>
