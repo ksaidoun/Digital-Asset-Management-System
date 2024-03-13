@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--Hope this works-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   
@@ -17,6 +19,7 @@
   <button class = "side" onclick="contentWorkFlow()">Content WorkFlow</button>-->
   <a href="#" id = "DAMLink" onclick="DAM()">DAM</a>
   <a href="#" id = "ContentWorkFlowLink" onclick="contentWorkFlow()">Content Workflow</a>
+  <a href="#" id = "analyticsPageLink" onclick="analyticsPage()">Analytics Page</a>
 </div><!--
 <div class="sidebar">
   <a href="#" onclick="toggleTab('DAM')">DAM</a>
@@ -24,7 +27,7 @@
 </div>-->
 <div>
   <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776;</span>
-  <img style="cursor:pointer; bottom:0" onclick="openNav()" src = "images/DAM.png" width="100px">
+  <img style="cursor:pointer; bottom:0" onclick="openNav()" src = "Don't modify/DAM.png" width="100px">
 
 <!--<a href="user-guide.html">User Guide</a>-->
 <a href="pricing-plans.html" style="margin-left: 20px">Pricing Plans</a>
@@ -45,10 +48,19 @@
     <div style = "display: block">
     <img id="modalImg" margin = "20px" src="" width="400" height="200">
   </div>
-  <span id = "modalID"></span>
-    <textarea id="modalFileDesc" rows="4" cols="50" placeholder="File Description..."></textarea>
-    <textarea id="modalTags" rows="4" cols="50" placeholder="Tags..."></textarea>
-    <button id = "saveChanges" class = "btn">Save Changes</button>
+  <span id = "modalID" style="display:none"></span>
+  <div style="padding-top:20px; padding-bottom:20px">
+  <div style="display:inline-block">
+  <span style="display:block">Description:</span>
+    <textarea style="display:block" id="modalFileDesc" rows="4" cols="50" placeholder="File Description..."></textarea>
+  </div>
+  <div style="display:inline-block">
+    <span style="display:block" >Tags:</span>
+    <textarea style="display:block" id="modalTags" rows="4" cols="50" placeholder="Tags..."></textarea>
+    
+  </div>
+</div>
+  <button id = "saveChanges" style="display:block" class = "btn">Save Changes</button>
     <!--<button id="closeModalBtn">Close</button>-->
   </div>
 </div>
@@ -56,11 +68,17 @@
         <span class=createText>Sort By:</span>
         <select name="Sort by" id="Sort">
             <option value="File Name">File Name</option>
-            <option value="Number of Tags (Ascending)">Number of Tags (Ascending)</option>
-            <option value="Number of Tags (Descending)">Number of Tags (Descending)</option>
-            <option value="Date Created (Ascending)">Date Created (Earliest first)</option>
-            <option value="Date Created (Descending)">Date Created (Most recent first)</option>
+            <option value="File Size">File Size</option>
+            <option value="Number of Tags">Number of Tags</option>
+            <!--<option value="Number of Tags (Descending)">Number of Tags (Descending)</option>-->
+            <option value="Date Created">Date Created</option>
+            <!--<option value="Date Created (Descending)">Date Created (Most recent first)</option>-->
             
+        </select>
+        <!--<span class=createText>Order By:</span>-->
+        <select name="Order by" id="Order">
+          <option value="Ascending">Ascending</option>
+          <option value="Descending">Descending</option>
         </select>
         <span class=createText>Filter By:</span>
         <select name="Filter by" id="Filter">
@@ -95,7 +113,7 @@
   <span style="margin-right: 5px">Enable auto-tagging? </span>
   <div id="imageContainer"></div>
   <label class="switch">
-    <input id = "autoTag" type="checkbox">
+    <input id = "autoTag" type="checkbox" checked="true">
     <span class="slider round"></span>
   </label>
 </div>
@@ -125,8 +143,13 @@
         </div>
 
 </div>
-<link rel="stylesheet" href="contentWorkflow.css">
+<div class = "analyticsPage" id = "analyticsPage" style="display:none">
+  <canvas id="myPieChart" width="300" height="300" style="display:inline-block"></canvas>
+  <canvas id="myPieChart2" width="300" height="300" style="display:inline-block"></canvas>
+  <!--<button id="pieChartButton"></button>-->
+</div>
 <div class = "contentWorkflow" id = "contentWorkflow" style="display:none">
+  <link rel="stylesheet" href="contentWorkflow.css">
   <div class="container">
     <h1>Content Workflow</h1>
     <div id="tasks">
@@ -145,6 +168,7 @@
       <button onclick="addSubtask()">Add Subtask</button>
     </div>
   </div>
+
   <!--
     <div class = topVis >
         Lowest Grade:
@@ -173,4 +197,5 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 <script src="navigation.js"></script>
 <script src="DAMJavaScript.js"></script>
 <script src="contentWorkflow.js"></script>
+<script src="analytics.js"></script>
 </html>

@@ -57,7 +57,7 @@
         }
 
         function validEmail(newUsername){
-            return (newUsername.toLowerCase().includes("@christiedigital.com"));
+            return (newUsername.toLowerCase().includes("@premiumprojectors.com"));
         }
         function containsSpecialChars(password) {
             var specialChars = "!@#$%^&*()-_=+[]{};:,.<>?";
@@ -87,7 +87,7 @@
                         return;
             }
             if(!isValidEmail){
-                outputMessage += "Error: Email must be valid for your organization.<br>";
+                outputMessage += 'Error: Email must end in "@premiumprojectors.com".<br>';
             }
             if(newPassword.length < 8){
                 outputMessage += "Error: Password must contain at least 8 characters.<br>";

@@ -18,6 +18,8 @@ var currentFile = null;
 
 var sorter = document.getElementById("Sort");
 sorter.onchange = function(){updateVisuals()};
+var order = document.getElementById("Order");
+order.onchange = function(){updateVisuals()};
 var filter = document.getElementById("Filter");
 filter.onchange = function(){updateVisuals()};
 var tagOptions = document.getElementById("tagOptions");
@@ -46,19 +48,25 @@ var gamer = document.getElementById('gamer');
         case "File Name":
             assets.sort(function(a,b){if(a.fileName.toLowerCase() > b.fileName.toLowerCase()) return 1; else if(a.fileName.toLowerCase() < b.fileName.toLowerCase()) return -1; return 0;})
             break;
-        case "Number of Tags (Ascending)":
+        case "Number of Tags":
             assets.sort(function(a,b){return a.tags.length - b.tags.length})
             break;
-        case "Number of Tags (Descending)":
-            assets.sort(function(a,b) {return b.tags.length - a.tags.length});
+        case "File Size":
+            assets.sort(function(a,b){return a.fileSize - b.fileSize})
             break;
-        case "Date Created (Ascending)":
+        /*case "Number of Tags (Descending)":
+            assets.sort(function(a,b) {return b.tags.length - a.tags.length});
+            break;*/
+        case "Date Created":
             assets.sort(function(a,b) {return a.createdOn - b.createdOn});
             break;
-        case "Date Created (Descending)":
+        /*case "Date Created (Descending)":
             assets.sort(function(a,b) {return b.createdOn - a.createdOn});
-            break;
+            break;*/
 
+    }
+    if(order.value == "Descending"){
+        assets.reverse();
     }
 var count = 0;
 var tags = 0;
@@ -133,9 +141,10 @@ var storageUsed = 0;
         }
 
     }
-    document.getElementById("average").innerHTML = count==0? 0 : tags / count;
+    document.getElementById("average").innerHTML = count==0? 0 : Math.round(tags * 100/ count)/100;
     document.getElementById("numberOfDocuments").innerHTML = count;
     document.getElementById("storageUsed").innerHTML = storageFormat(storageUsed);
+    onValueChange();
     //document.getElementById("storageCapacity").innerHTML = "64TB";
     
 }
@@ -165,15 +174,56 @@ function autoTag(asset){
     if(asset.fileName == "Projector_1.png"){
         asset.tags.push("Projector");
         asset.tags.push("Camera");
-        asset.tags.push("Christie");
+        asset.tags.push("Epson");
         asset.tags.push("Black");
     }
     if(asset.fileName == "Projector_2.jpg"){
         asset.tags.push("Projector");
-        asset.tags.push("Christie");
+        asset.tags.push("Movie Projector");
+        asset.tags.push("High Definition");
+        asset.tags.push("DVD");
         asset.tags.push("White");
-        asset.tags.push("LW555");
-        asset.tags.push("3LCD");
+        
+    }if(asset.fileName == "Lens.png"){
+        asset.tags.push("Projector Lens");
+        asset.tags.push("Short throw");
+        
+    }
+    if(asset.fileType.startsWith("video/")){
+        asset.tags.push("Speed Highway");
+        asset.tags.push("Speed");
+        asset.tags.push("Moveable boxes");
+        asset.tags.push("80");
+        asset.tags.push("Coffee");
+        asset.tags.push("Blast Off!");
+        asset.tags.push("Ring");
+        asset.tags.push("Boost");
+        asset.tags.push("Enter");
+        asset.tags.push("Chaospace");
+        asset.tags.push("Tikal");
+        asset.tags.push("Radio");
+        asset.tags.push("Exit");
+    }
+    if(asset.fileName.includes("CS490")){
+        asset.tags.push("CS490");
+        asset.tags.push("Design Document");
+        asset.tags.push("Digital Asset Management");
+        asset.tags.push("AI");
+        asset.tags.push("Source of Truth");
+        asset.tags.push("Database");
+
+    }if(asset.fileName.includes("Social_Media")){
+        asset.tags.push("Social Media");
+        asset.tags.push("Marketing Plan");
+        asset.tags.push("Instagram");
+        asset.tags.push("Facebook");
+        asset.tags.push("Strategy");
+
+    }
+    if(asset.fileName.includes("Group_Collab")){
+        asset.tags.push("CampusCollab");
+        asset.tags.push("Ice-breaker");
+        asset.tags.push("Events");
     }
 }
 
@@ -315,9 +365,20 @@ function quickCreate(prompt){
     if(prompt.includes("doge")){
         img.src = "https://cdn.i-scmp.com/sites/default/files/styles/wide_landscape/public/d8/video/thumbnail/2023/08/21/Clean_0.jpg?itok=PY9WAyjc";
         name = "doge.png";
-        size = 6921;
-        desc = "Doge is really cool";
+        size = 42069;
+        //desc = "Doge is really cool";
         tags = ["Doge", "Dog", "Funny", "Meme"];
+    }else if(prompt.includes("megamind") && prompt.includes("doom")){
+        img.src = megamindDoom;//"https://www.awn.com/sites/default/files/styles/original/public/image/featured/megamind_vs_the_doom_syndicate_lady_doppler_behemoth_megamind_pierre_pressure_lord_nighty-knight-1280.jpg"
+        name = "Megamind_2.png";
+        size=70421;
+        tags = ["Megamind 2", "Doom Syndicate", "Sequel"];
+    }
+    else if(prompt.includes("megamind")){
+        img.src = megamind;//"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRd-2Nn5YoT6fQgMlZs2fWWkyjmeeabSFV5IPgK4tzjg&s";
+        name = "Megamind.png";
+        size=69420;
+        tags = ["Megamind", "Peak", "Underrated"];
     }
       
     quickCreateField.value = "";
@@ -382,6 +443,7 @@ uploadToDAM.addEventListener('click', ()=>{
     const currentTime = new Date();
     const fileType = currentFile.type;
     //const file = currentFile;
+    console.log(currentFile.name);
       if (currentFile && fileType.startsWith("image/") ) {
         const reader = new FileReader();
 
@@ -401,10 +463,13 @@ uploadToDAM.addEventListener('click', ()=>{
             }
           }
         else if(currentFile && fileType.startsWith("video/")){
-            img.src="https://i.ytimg.com/vi/k-JUM2vqQkw/maxresdefault.jpg";
+            img.src=sonicThumbnail;//"https://i.ytimg.com/vi/k-JUM2vqQkw/maxresdefault.jpg";
             addAsset(currentFile, img, currentTime);
-        }else if(currentFile && currentFile.name.includes('CS490')){
+        }else if(currentFile && currentFile.name.includes('Social_Media')){
             img.src = CS490;
+            addAsset(currentFile, img, currentTime);
+        }else if(currentFile && currentFile.name.includes('Group_Collab')){
+            img.src = CS449;
             addAsset(currentFile, img, currentTime);
         }
     });

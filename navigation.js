@@ -1,11 +1,19 @@
 function DAM(){
     document.getElementById("DAM").style.display = "flex";
     document.getElementById("contentWorkflow").style.display = "none";
+    document.getElementById("analyticsPage").style.display = "none";
 }
 
 function contentWorkFlow(){
     document.getElementById("DAM").style.display = "none";
     document.getElementById("contentWorkflow").style.display = "block";
+    document.getElementById("analyticsPage").style.display = "none";
+}
+
+function analyticsPage(){
+  document.getElementById("DAM").style.display = "none";
+  document.getElementById("contentWorkflow").style.display = "none";
+  document.getElementById("analyticsPage").style.display = "block";
 }
 
 function openNav() {
