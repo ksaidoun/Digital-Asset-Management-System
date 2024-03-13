@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing Plans</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: stretch; /* Make each child take full height */
+        min-height: 100px; /* Set minimum height to prevent collapse */
+    }
+    .pricing-plan {
+        margin: 20px;
+        padding: 20px;
+        border: 2px solid #3498db;
+        border-radius: 5px;
+        overflow: hidden;
+        flex: 1; /* Each plan takes equal space */
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+    .pricing-plan:hover {
+        background-color: #3498db;
+        color: #fff;
+    }
+    .pricing-plan h2 {
+        color: #3498db;
+    }
+    .pricing-plan img {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+    .pricing-plan p {
+        margin: 20px 0;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 5px;
+    }
+    .modal-content h2 {
+        color: #3498db;
+    }
+    .modal-content input[type="text"],
+    .modal-content input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        box-sizing: border-box;
+    }
+    .modal-content .btn {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .modal-content .btn:hover {
+        background-color: #2980b9;
+    }
+    .close{
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="pricing-plan" onclick="openModal('$400 / year for DAMs')" style="cursor: pointer;">
+        <h2>DAMs</h2>
+        <img src="dams-image.jpg" alt="DAMs">
+        <p>A content workflow, AI asset-tagging, and a brand portal to centralize brand guidelines.</p>
+    </div>
+
+    <div class="pricing-plan" onclick="openModal('$600 / year for DAAMS+')" style="cursor: pointer;">
+        <h2>DAAMS+</h2>
+        <img src="daams-plus-image.jpg" alt="DAAMS+">
+        <p>Access to more data-driven content insights.</p>
+    </div>
+
+    <div class="pricing-plan" onclick="openModal('$800 / year for DAAAAMS++')" style="cursor: pointer;">
+        <h2>DAAAAMS++</h2>
+        <img src="daaams-plus-plus-image.jpg" alt="DAAAAMS++">
+        <p>More integrations and tech support and consulting at every step.</p>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Confirm Purchase</h2>
+        <p id="price"></p>
+        <input type="text" placeholder="Address">
+        <input type="text" placeholder="Postal Code">
+        <input type="text" placeholder="City">
+        <input type="text" placeholder="Province">
+        <input type="text" placeholder="Credit Card Number">
+        <input type="text" placeholder="Phone Number (Optional)">
+        <button class="btn">Confirm Purchase</button>
+    </div>
+</div>
+
+<script>
+    function openModal(price) {
+        var modal = document.getElementById('modal');
+        var priceElement = document.getElementById('price');
+        priceElement.textContent = price;
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

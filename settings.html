@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="file"],
+        input[type="text"],
+        input[type="checkbox"] {
+            margin-bottom: 10px;
+        }
+        .btn {
+            
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Settings</h2>
+        <form action="#" method="post" enctype="multipart/form-data">
+            <label for="profilePic">Profile Picture:</label>
+            <input type="file" id="profilePic" name="profilePic" accept="image/*"><br>
+
+            <label for="toggleMFA">Multifactor Authentication:</label>
+            <input type="checkbox" id="toggleMFA" name="toggleMFA"><br>
+
+            <div id="mfaOptions" style="display: none;">
+                <label for="phone">Phone Number (for MFA):</label>
+                <input type="text" id="phone" name="phone"><br>
+            </div>
+
+            <label for="emailNotifications">Email Notifications:</label>
+            <input type="checkbox" id="emailNotifications" name="emailNotifications"><br>
+
+            <a class = btn href = "index.html">Save Settings</a>
+        
+            <a class = btn href = "index.html">Discard Settings</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('toggleMFA').addEventListener('change', function() {
+            var mfaOptions = document.getElementById('mfaOptions');
+            mfaOptions.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
