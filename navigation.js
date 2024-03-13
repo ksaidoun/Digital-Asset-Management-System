@@ -9,11 +9,15 @@ function contentWorkFlow(){
 }
 
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("mySidenav").style.display = "block";
+  //document.getElementById("DAMLink").style.display = "block";
+  //document.getElementById("contentWorkFlowLink").style.display = "block";
 }
 
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("mySidenav").style.display = "none";
+  //document.getElementById("DAMLink").style.display = "none";
+  //document.getElementById("contentWorkFlowLink").style.display = "none";
 }
 
 function closeNav2(el){
@@ -39,7 +43,13 @@ function closeNav2(el){
     closeNav();
   }
 }
-
+function toggleTab(tabName) {
+  var tabs = document.querySelectorAll('.content > div');
+  tabs.forEach(function(tab) {
+      tab.classList.remove('active');
+  });
+  document.getElementById(tabName).classList.add('active');
+}
 
 //const openModalBtn = document.getElementById("openModalBtn");
 //const closeModalBtn = document.getElementById("closeModalBtn");

@@ -57,7 +57,7 @@
         }
 
         function validEmail(newUsername){
-            return (newUsername.toLowerCase().includes("@gmail.com") || newUsername.toLowerCase().includes("@hotmail.com"));
+            return (newUsername.toLowerCase().includes("@christiedigital.com"));
         }
         function containsSpecialChars(password) {
             var specialChars = "!@#$%^&*()-_=+[]{};:,.<>?";
@@ -81,32 +81,20 @@
             var isValidEmail = validEmail(newUsername);
             var hasSpecialChars = containsSpecialChars(newPassword);
             if(isValidEmail && newPassword.length >= 8 && hasSpecialChars){
-                        //console.log("New Username: " + newUsername);
-                        //console.log("New Password: " + newPassword);
             
                         showMessage("success", "Account created successfully!");
                         showSignInForm();
                         return;
             }
             if(!isValidEmail){
-                outputMessage += "Error: Email is invalid.<br>";
+                outputMessage += "Error: Email must be valid for your organization.<br>";
             }
             if(newPassword.length < 8){
                 outputMessage += "Error: Password must contain at least 8 characters.<br>";
             }
             if(!hasSpecialChars){
                         outputMessage += "Error: Password must contain at least one special character.<br>";
-                        //showMessage("failure", "Error: Password must contain at least one special character.");
             }
-                //else{
-                    
-                    //showMessage("failure", "Error: Password must contain at least 8 characters.");
-                //}
-            
-            //else{
-                //outputMessage += "Error: username must be a valid email address.\n";
-                //showMessage("failure", "Error: username must be a valid email address.");
-            //}
             showMessage("failure", outputMessage);
             console.log(outputMessage);
         }
